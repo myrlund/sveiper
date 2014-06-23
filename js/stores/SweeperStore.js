@@ -46,6 +46,10 @@ function openSquare(coordinate) {
   var square = getSquare(coordinate);
   square.open = true;
 
+  if (square.mine) {
+    explodeSquare(coordinate);
+  }
+
   if (square.number === 0) {
     openNeighborSquares(coordinate);
   }
