@@ -70,7 +70,7 @@ var Game = React.createClass({
                  background={this.state.background} />
         </section>
         <footer>
-          <a href="https://github.com/myrlund/sveiper">Laget av Jonas Myrlund</a>
+          <a href="https://github.com/myrlund/sveiper">Laget av Jonas</a>
         </footer>
       </div>
     );
