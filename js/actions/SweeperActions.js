@@ -17,6 +17,13 @@ var SweeperActions = {
     });
   },
 
+  explodeSquare: function(coordinate) {
+    AppDispatcher.handleViewAction({
+      actionType: SweeperConstants.EXPLODE_SQUARE,
+      coordinate: coordinate
+    });
+  },
+
   openTactical: function (coordinate) {
     AppDispatcher.handleViewAction({
       actionType: SweeperConstants.OPEN_TACTICAL,
@@ -28,6 +35,18 @@ var SweeperActions = {
     AppDispatcher.handleViewAction({
       actionType: SweeperConstants.TOGGLE_SQUARE_FLAG,
       coordinate: coordinate
+    });
+  },
+
+  runVictoryRoutine: function () {
+    AppDispatcher.handleViewAction({
+      actionType: SweeperConstants.VICTORY_ROUTINE
+    });
+  },
+
+  restartGame: function () {
+    AppDispatcher.handleViewAction({
+      actionType: SweeperConstants.RESTART_GAME
     });
   }
 

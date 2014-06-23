@@ -3,14 +3,84 @@
  */
 
 body {
-  font: 18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  width: auto;
+  background: #aaa;
+}
+
+.game {
+  margin: 0 auto;
+  border: 2px solid;
+  border-color: #ddd #999 #999 #ddd;
+}
+
+header {
+  position: relative;
+  background: #ccc;
+}
+  header h1 {
+    text-align: center;
+    font-size: 3em;
+    margin: .1em 0 .3em;
+  }
+    header h1 a {
+      color: #333;
+      text-decoration: none;
+    }
+    header h1 a:hover {
+      text-decoration: none;
+      color: #555;
+    }
+
+  header aside,
+  header button {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-size: 1.4em;
+  }
+  header aside {
+    padding: 0 1em;
+    border: .14em solid;
+    border-color: #888 #bbb #bbb #888;
+  }
+    header aside.timer {
+      float: right;
+      clear: right;
+    }
+    header button {
+      display: block;
+
+      width: 2em;
+      margin-left: -1em;
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      bottom: 10%;
+
+      padding: 0;
+
+      font-family: monospace;
+
+      /*border-color: #bbb #888 #888 #bbb;*/
+    }
+
+footer {
+  padding: 1em;
+  font-size: .9em;
+  text-align: center;
+}
+  footer, footer a {
+    color: #555;
+  }
+
+.board {
 }
 
 ul.rows {
   list-style-type: none;
   padding: 0;
+  margin: 0 0 1em;
 }
   ul.rows li {
     margin: 0;
@@ -25,7 +95,6 @@ ul.rows {
   width: 1.8em;
   height: 1.8em;
   margin: 0;
-  overflow: hidden;
 
   padding: .1em;
   text-align: center;
@@ -38,7 +107,7 @@ ul.rows {
   .square.open {
     border-width: .1em;
     border-color: #999;
-    background: #cdcdcd;
+    background: rgba(255, 255, 255, .2);
     cursor: default;
   }
     .square.open.n1 {
@@ -62,6 +131,16 @@ ul.rows {
       background-repeat: no-repeat;
       background-position: center center;
     }
+      .square.open.mine .pic {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        background: url(../gfx/mine-explode.svg) no-repeat center center;
+        background-size: 100%;
+      }
+      .game.gameover .square.open.mine .pic {
+        background-image: url(../gfx/sindre-hode.png);
+      }
   .square.flagged {
     background-image: url(../gfx/flag.svg);
     background-size: .9em;

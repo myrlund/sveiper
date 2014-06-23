@@ -4,13 +4,9 @@
 
 var React = require('react');
 
-// var TodoApp = require('./components/Square.react');
-// var Square = require('./components/Square.react');
-var Board = require('./components/Board.react');
+var Game = require('./components/Game.react');
 
-// <Board />,
 React.renderComponent(
-  // <Square mine={false} isFlagged={true} isOpen={false} />,
-  <Board width={30} height={16} mineCount={99} />,
+  <Game width={15} height={21} mineCount={60} />,
   document.getElementById('sweeperapp')
 );

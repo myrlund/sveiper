@@ -22,6 +22,10 @@ var Square = React.createClass({
       return;
     }
 
+    if (this.props.isMine) {
+      SweeperActions.explodeSquare(this.props.coordinate);
+    }
+
     SweeperActions.openSquare(this.props.coordinate);
   },
 
@@ -42,7 +46,9 @@ var Square = React.createClass({
     if (this.props.isOpen) {
       if (this.props.isMine) {
         return (
-          <div className={"square open mine"} />
+          <div className={"square open mine"}>
+            {this.props.exploded ? <div className="pic" /> : ''}
+          </div>
         );
       }
       else {

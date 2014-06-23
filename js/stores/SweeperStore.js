@@ -1,31 +1,12 @@
-/**
- * Copyright 2013-2014 Facebook, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * TodoStore
- */
-
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var SweeperConstants = require('../constants/SweeperConstants');
+var SweeperActions = require('../actions/SweeperActions');
 var merge = require('react/lib/merge');
 
 var LevelUtils = require('../util/level');
 
 var CHANGE_EVENT = 'change';
-
-var _firstClickDone = false;
 
 function getLevel() {
   return SweeperStore.getLevel();
@@ -42,12 +23,51 @@ function getSquare(coordinate) {
   return getLevel()[coordinate[0]][coordinate[1]];
 }
 
+function explodeAllRandomly(mines) {
+  var randomIndex = Math.floor(Math.random() * mines.length);
+  var mine = mines.splice(randomIndex, 1)[0];
+  SweeperActions.explodeSquare(mine.coordinate);
+
+  if (mines.length > 0) {
+    setTimeout(function () {
+      explodeAllRandomly(mines);
+    }, 200);
+  }
+}
+
+function runVictoryRoutine() {
+  SweeperStore.setGameOver();
+
+  var mines = LevelUtils.mines(getLevel());
+  explodeAllRandomly(mines);
+}
+
 function openSquare(coordinate) {
   var square = getSquare(coordinate);
   square.open = true;
 
+  if (square.mine) {
+    explodeSquare(coordinate);
+  }
+
   if (square.number === 0) {
     openNeighborSquares(coordinate);
+  }
+}
+
+function explodeSquare(coordinate) {
+  var square = getSquare(coordinate);
+  square.exploded = true;
+
+  openAllSquares();
+}
+
+function openAllSquares() {
+  var level = getLevel();
+  for (var i = 0; i < level.length; i++) {
+    for (var j = 0; j < level[j].length; j++) {
+      level[i][j].open = true;
+    }
   }
 }
 
@@ -82,18 +102,41 @@ function toggleSquareFlag(coordinate) {
   }
 }
 
+function restartGame() {
+  SweeperStore._reset();
+}
+
 var SweeperStore = merge(EventEmitter.prototype, {
 
   _config: null,
   _level: null,
   _firstClickAt: null,
+  _gameOver: false,
 
   configure: function (config) {
     this._config = config;
   },
 
+  _reset: function () {
+    this._gameOver = false;
+    this._firstClickAt = null;
+    this._level = null;
+  },
+
   initialLevel: function () {
     return LevelUtils.placeholderLevel(this._config);
+  },
+
+  hasStarted: function () {
+    return !!this.getLevel();
+  },
+
+  isGameOver: function () {
+    return this._gameOver;
+  },
+
+  setGameOver: function () {
+    this._gameOver = true;
   },
 
   /**
@@ -101,11 +144,19 @@ var SweeperStore = merge(EventEmitter.prototype, {
    * @return {object}
    */
   getLevel: function () {
-    if (!this._level) {
+    if (!this._level && this._firstClickAt) {
       this._level = LevelUtils.generate(this._config, this._firstClickAt);
     }
 
     return this._level;
+  },
+
+  remainingMineCount: function () {
+    return LevelUtils.remainingMineCount(this.getLevel());
+  },
+
+  remainingSquareCount: function () {
+    return LevelUtils.remainingSquareCount(this.getLevel());
   },
 
   emitChange: function() {
@@ -138,12 +189,24 @@ AppDispatcher.register(function(payload) {
       openSquare(action.coordinate);
       break;
 
+    case SweeperConstants.EXPLODE_SQUARE:
+      explodeSquare(action.coordinate);
+      break;
+
     case SweeperConstants.OPEN_TACTICAL:
       openTactical(action.coordinate);
       break;
 
     case SweeperConstants.TOGGLE_SQUARE_FLAG:
       toggleSquareFlag(action.coordinate);
+      break;
+
+    case SweeperConstants.VICTORY_ROUTINE:
+      runVictoryRoutine();
+      break;
+
+    case SweeperConstants.RESTART_GAME:
+      restartGame();
       break;
 
     default:

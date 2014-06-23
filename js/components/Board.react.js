@@ -12,14 +12,11 @@ var Board = React.createClass({
   getDefaultProps: function () {
     return {
       width: 9,
-      height: 9,
-      mineDensity: 0.13
+      height: 9
     };
   },
 
   getInitialState: function () {
-    SweeperStore.configure(this.props);
-
     return {
       level: SweeperStore.initialLevel()
     };
@@ -33,10 +30,16 @@ var Board = React.createClass({
     SweeperStore.removeChangeListener(this._onChange);
   },
 
-  _onChange: function() {
-    this.setState({
-      level: SweeperStore.getLevel()
-    });
+  _onChange: function(e) {
+    if (SweeperStore.hasStarted()) {
+      this.setState({
+        level: SweeperStore.getLevel()
+      });
+    }
+    else {
+      // Game reset
+      this.replaceState(this.getInitialState());
+    }
   },
 
   /**
@@ -57,6 +60,7 @@ var Board = React.createClass({
             isOpen={square.open}
             isFlagged={square.flagged}
             isMine={square.mine}
+            exploded={square.exploded}
             coordinate={[i, j]}
             key={[i, j]} />
         )
@@ -70,6 +74,7 @@ var Board = React.createClass({
     return (
       <section className="board">
         <ul className="rows">{outputRows}</ul>
+        <div style={{clear: 'both'}} />
       </section>
     );
   }
