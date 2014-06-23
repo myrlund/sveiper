@@ -8,8 +8,6 @@ var LevelUtils = require('../util/level');
 
 var CHANGE_EVENT = 'change';
 
-var _firstClickDone = false;
-
 function getLevel() {
   return SweeperStore.getLevel();
 }

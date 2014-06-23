@@ -23,11 +23,22 @@ header {
     text-align: center;
     font-size: 3em;
     margin: .1em 0 .3em;
-    color: #f00;
   }
-    header h1 .alt {
+    header h1 a {
+      color: #f00;
+      text-decoration: none;
+    }
+    header h1 a .alt {
       color: #00f;
     }
+    header h1 a:hover {
+      text-decoration: none;
+      color: #00f;
+    }
+    header h1 a:hover .alt {
+      color: #f00;
+    }
+
   header h2 {
     margin: 0;
     text-align: center;

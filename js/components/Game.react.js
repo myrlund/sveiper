@@ -59,7 +59,7 @@ var Game = React.createClass({
           gameover: this.state.isGameOver
         })} style={{width: ''+(this.props.width * 1.8)+'em'}}>
           <header>
-            <h1>sindre<span className="alt">sveiper</span></h1>
+            <h1><a href="">sindre<span className="alt">sveiper</span></a></h1>
             <h2 className="remaining">
               {this.state.isGameOver ? this._happyMessage : this.state.remainingMineCount}
             </h2>
