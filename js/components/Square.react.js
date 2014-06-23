@@ -46,7 +46,9 @@ var Square = React.createClass({
     if (this.props.isOpen) {
       if (this.props.isMine) {
         return (
-          <div className={"square open mine"}>{this.props.exploded ? <img src="gfx/sindre-hode.png" alt="" /> : ''}</div>
+          <div className={"square open mine"}>
+            {this.props.exploded ? <div className="pic" /> : ''}
+          </div>
         );
       }
       else {

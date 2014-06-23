@@ -35,6 +35,18 @@ header {
     padding: 0 1em;
     color: #090;
   }
+    .game.gameover header h2 {
+      background-color: red;
+    }
+
+footer {
+  padding: 1em;
+  font-size: .9em;
+  text-align: center;
+}
+  footer, footer a {
+    color: #555;
+  }
 
 .board {
   margin: 0 auto;
@@ -106,11 +118,18 @@ ul.rows {
       background-repeat: no-repeat;
       background-position: center center;
     }
-      .square.open.mine img {
+      .square.open.mine .pic {
         text-align: center;
         position: relative;
         top: -25px;
         left: -10px;
+
+        background: url(../gfx/sindre-hode-fail.png) no-repeat center center;
+        width: 50px;
+        height: 71px;
+      }
+      .game.gameover .square.open.mine .pic {
+        background-image: url(../gfx/sindre-hode.png);
       }
   .square.flagged {
     background-image: url(../gfx/flag.svg);

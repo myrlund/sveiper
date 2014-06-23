@@ -7,6 +7,8 @@ var SweeperActions = require('../actions/SweeperActions');
 var SweeperStore = require('../stores/SweeperStore');
 var Board = require('./Board.react');
 
+var cx = require('react/lib/cx');
+
 var Game = React.createClass({
   _happyMessage: 'Gratulerer med dagen!',
 
@@ -51,18 +53,26 @@ var Game = React.createClass({
 
   render: function () {
     return (
-      <section className="game" style={{width: ''+(this.props.width * 1.8)+'em'}}>
-        <header>
-          <h1>sindre<span className="alt">sveiper</span></h1>
-          <h2 className="remaining">
-            {this.state.isGameOver ? this._happyMessage : this.state.remainingMineCount}
-          </h2>
-        </header>
-        <Board width={this.props.width}
-               height={this.props.height}
-               mineCount={this.props.mineCount}
-               background={this.state.background} />
-      </section>
+      <div>
+        <section className={cx({
+          game: true,
+          gameover: this.state.isGameOver
+        })} style={{width: ''+(this.props.width * 1.8)+'em'}}>
+          <header>
+            <h1>sindre<span className="alt">sveiper</span></h1>
+            <h2 className="remaining">
+              {this.state.isGameOver ? this._happyMessage : this.state.remainingMineCount}
+            </h2>
+          </header>
+          <Board width={this.props.width}
+                 height={this.props.height}
+                 mineCount={this.props.mineCount}
+                 background={this.state.background} />
+        </section>
+        <footer>
+          <a href="https://github.com/myrlund/sveiper">Laget av Jonas Myrlund</a>
+        </footer>
+      </div>
     );
   }
 
