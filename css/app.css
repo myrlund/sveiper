@@ -1,0 +1,69 @@
+/**
+ * base.css overrides
+ */
+
+body {
+  font-size: 18px;
+  width: auto;
+}
+
+ul.rows {
+  list-style-type: none;
+  padding: 0;
+}
+  ul.rows li {
+    margin: 0;
+    clear: both;
+  }
+
+.square {
+  box-sizing: border-box;
+
+  display: block;
+  float: left;
+  width: 1.8em;
+  height: 1.8em;
+  margin: 0;
+  overflow: hidden;
+
+  padding: .1em;
+  text-align: center;
+  font-weight: bold;
+
+  background: #ccc;
+  border: .24em solid;
+  border-color: #ddd #999 #999 #ddd;
+}
+  .square.open {
+    border-width: .1em;
+    border-color: #999;
+    background: #cdcdcd;
+    cursor: default;
+  }
+    .square.open.n1 {
+      color: #00f;
+    }
+    .square.open.n2 {
+      color: #3a3;
+    }
+    .square.open.n3 {
+      color: #c00;
+    }
+    .square.open.n4 {
+      color: #33d;
+    }
+    .square.open.n5 {
+      color: #c03;
+    }
+    .square.open.mine {
+      background-image: url(../gfx/mine.svg);
+      background-size: 1.3em;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  .square.flagged {
+    background-image: url(../gfx/flag.svg);
+    background-size: .9em;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
