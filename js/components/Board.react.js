@@ -57,6 +57,7 @@ var Board = React.createClass({
             isOpen={square.open}
             isFlagged={square.flagged}
             isMine={square.mine}
+            exploded={square.exploded}
             coordinate={[i, j]}
             key={[i, j]} />
         )
@@ -70,6 +71,7 @@ var Board = React.createClass({
     return (
       <section className={"board bg"+this.props.background}>
         <ul className="rows">{outputRows}</ul>
+        <div style={{clear: 'both'}} />
       </section>
     );
   }

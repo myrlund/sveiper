@@ -51,6 +51,22 @@ function openSquare(coordinate) {
   }
 }
 
+function explodeSquare(coordinate) {
+  var square = getSquare(coordinate);
+  square.exploded = true;
+
+  openAllSquares();
+}
+
+function openAllSquares() {
+  var level = getLevel();
+  for (var i = 0; i < level.length; i++) {
+    for (var j = 0; j < level[j].length; j++) {
+      level[i][j].open = true;
+    }
+  }
+}
+
 function openTactical(coordinate) {
   var square = getSquare(coordinate);
 
@@ -136,6 +152,10 @@ AppDispatcher.register(function(payload) {
     case SweeperConstants.OPEN_SQUARE:
       if (!SweeperStore._firstClickAt) SweeperStore._firstClickAt = action.coordinate;
       openSquare(action.coordinate);
+      break;
+
+    case SweeperConstants.EXPLODE_SQUARE:
+      explodeSquare(action.coordinate);
       break;
 
     case SweeperConstants.OPEN_TACTICAL:

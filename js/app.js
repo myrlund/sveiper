@@ -14,6 +14,6 @@ var selectedBackground = Math.floor(Math.random() * backgroundCount) + 1;
 // <Board />,
 React.renderComponent(
   // <Square mine={false} isFlagged={true} isOpen={false} />,
-  <Board width={15} height={22} mineCount={99} background={selectedBackground} />,
+  <Board width={15} height={21} mineCount={99} background={selectedBackground} />,
   document.getElementById('sweeperapp')
 );

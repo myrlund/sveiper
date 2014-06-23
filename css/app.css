@@ -71,10 +71,10 @@ ul.rows {
       color: #c03;
     }
     .square.open.mine {
-      /*background-image: url(../gfx/mine.svg);
+      background-image: url(../gfx/mine.svg);
       background-size: 1.3em;
       background-repeat: no-repeat;
-      background-position: center center;*/
+      background-position: center center;
     }
       .square.open.mine img {
         text-align: center;

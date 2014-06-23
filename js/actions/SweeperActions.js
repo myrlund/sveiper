@@ -17,6 +17,13 @@ var SweeperActions = {
     });
   },
 
+  explodeSquare: function(coordinate) {
+    AppDispatcher.handleViewAction({
+      actionType: SweeperConstants.EXPLODE_SQUARE,
+      coordinate: coordinate
+    });
+  },
+
   openTactical: function (coordinate) {
     AppDispatcher.handleViewAction({
       actionType: SweeperConstants.OPEN_TACTICAL,
