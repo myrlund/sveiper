@@ -124,6 +124,10 @@ var SweeperStore = merge(EventEmitter.prototype, {
     return this._level;
   },
 
+  remainingMineCount: function () {
+    return LevelUtils.remainingMineCount(this.getLevel());
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },

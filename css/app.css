@@ -3,12 +3,41 @@
  */
 
 body {
-  font: 18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.5;
   width: auto;
 }
 
+.game {
+  margin: 0 auto;
+  border: 2px solid #555;
+}
+
+header {
+  font-family: 'comic sans ms';
+
+  background: #eee;
+  padding: .5em;
+}
+  header h1 {
+    text-align: center;
+    font-size: 3em;
+    margin: .1em 0 .3em;
+    color: #f00;
+  }
+    header h1 .alt {
+      color: #00f;
+    }
+  header h2 {
+    margin: 0;
+    text-align: center;
+    border: 2px solid #900;
+    padding: 0 1em;
+    color: #090;
+  }
+
 .board {
+  margin: 0 auto;
   background-size: 100% 100%;
   background: no-repeat center center;
   width: 27em;
@@ -26,6 +55,7 @@ body {
 ul.rows {
   list-style-type: none;
   padding: 0;
+  margin: 0 0 1em;
 }
   ul.rows li {
     margin: 0;

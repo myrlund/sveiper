@@ -12,14 +12,11 @@ var Board = React.createClass({
   getDefaultProps: function () {
     return {
       width: 9,
-      height: 9,
-      mineDensity: 0.13
+      height: 9
     };
   },
 
   getInitialState: function () {
-    SweeperStore.configure(this.props);
-
     return {
       level: SweeperStore.initialLevel()
     };

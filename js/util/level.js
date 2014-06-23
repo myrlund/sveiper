@@ -27,6 +27,21 @@ function hasCoordinate(arr, c) {
   return false;
 }
 
+function remainingMineCount(level) {
+  var flatLevel = level.reduce(function (a, b) {
+    return a.concat(b);
+  });
+
+  var flagCount = flatLevel.filter(function (s) {
+    return s.flagged;
+  }).length;
+  var totalMineCount = flatLevel.filter(function (s) {
+    return s.mine;
+  }).length;
+
+  return totalMineCount - flagCount;
+}
+
 function randomizedMines(config, blankCoordinate) {
   var tileCount = config.height * config.width;
   var decodeCoordinate = coordinateDecoder(config);
@@ -124,5 +139,6 @@ function getNeighborCoordinates(config, coordinate) {
 module.exports = {
   generate: generateNewLevel,
   placeholderLevel: placeholderLevel,
-  getNeighborCoordinates: getNeighborCoordinates
+  getNeighborCoordinates: getNeighborCoordinates,
+  remainingMineCount: remainingMineCount
 };
