@@ -19,6 +19,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var SweeperConstants = require('../constants/SweeperConstants');
+var SweeperActions = require('../actions/SweeperActions');
 var merge = require('react/lib/merge');
 
 var LevelUtils = require('../util/level');
@@ -40,6 +41,25 @@ function getLevelDimensions() {
 
 function getSquare(coordinate) {
   return getLevel()[coordinate[0]][coordinate[1]];
+}
+
+function explodeAllRandomly(mines) {
+  var randomIndex = Math.floor(Math.random() * mines.length);
+  var mine = mines.splice(randomIndex, 1)[0];
+  SweeperActions.explodeSquare(mine.coordinate);
+
+  if (mines.length > 0) {
+    setTimeout(function () {
+      explodeAllRandomly(mines);
+    }, 200);
+  }
+}
+
+function runVictoryRoutine() {
+  SweeperStore.setGameOver();
+
+  var mines = LevelUtils.mines(getLevel());
+  explodeAllRandomly(mines);
 }
 
 function openSquare(coordinate) {
@@ -103,6 +123,7 @@ var SweeperStore = merge(EventEmitter.prototype, {
   _config: null,
   _level: null,
   _firstClickAt: null,
+  _gameOver: false,
 
   configure: function (config) {
     this._config = config;
@@ -110,6 +131,14 @@ var SweeperStore = merge(EventEmitter.prototype, {
 
   initialLevel: function () {
     return LevelUtils.placeholderLevel(this._config);
+  },
+
+  isGameOver: function () {
+    return this._gameOver;
+  },
+
+  setGameOver: function () {
+    this._gameOver = true;
   },
 
   /**
@@ -126,6 +155,10 @@ var SweeperStore = merge(EventEmitter.prototype, {
 
   remainingMineCount: function () {
     return LevelUtils.remainingMineCount(this.getLevel());
+  },
+
+  remainingSquareCount: function () {
+    return LevelUtils.remainingSquareCount(this.getLevel());
   },
 
   emitChange: function() {
@@ -168,6 +201,10 @@ AppDispatcher.register(function(payload) {
 
     case SweeperConstants.TOGGLE_SQUARE_FLAG:
       toggleSquareFlag(action.coordinate);
+      break;
+
+    case SweeperConstants.VICTORY_ROUTINE:
+      runVictoryRoutine();
       break;
 
     default:

@@ -7,6 +7,6 @@ var React = require('react');
 var Game = require('./components/Game.react');
 
 React.renderComponent(
-  <Game width={15} height={21} mineCount={50} />,
+  <Game width={15} height={21} mineCount={40} />,
   document.getElementById('sweeperapp')
 );

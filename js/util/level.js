@@ -27,6 +27,18 @@ function hasCoordinate(arr, c) {
   return false;
 }
 
+function mines(level) {
+  var flatLevel = level.reduce(function (a, b) {
+    return a.concat(b);
+  });
+
+  var mines = flatLevel.filter(function (s) {
+    return s.mine;
+  });
+
+  return mines;
+}
+
 function remainingMineCount(level) {
   var flatLevel = level.reduce(function (a, b) {
     return a.concat(b);
@@ -40,6 +52,21 @@ function remainingMineCount(level) {
   }).length;
 
   return totalMineCount - flagCount;
+}
+
+function remainingSquareCount(level) {
+  var flatLevel = level.reduce(function (a, b) {
+    return a.concat(b);
+  });
+
+  var totalMineCount = flatLevel.filter(function (s) {
+    return s.mine;
+  }).length;
+  var unopenedSquareCount = flatLevel.filter(function (s) {
+    return !s.open;
+  }).length;
+
+  return unopenedSquareCount - totalMineCount;
 }
 
 function randomizedMines(config, blankCoordinate) {
@@ -140,5 +167,7 @@ module.exports = {
   generate: generateNewLevel,
   placeholderLevel: placeholderLevel,
   getNeighborCoordinates: getNeighborCoordinates,
-  remainingMineCount: remainingMineCount
+  remainingMineCount: remainingMineCount,
+  remainingSquareCount: remainingSquareCount,
+  mines: mines
 };

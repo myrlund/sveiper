@@ -36,6 +36,12 @@ var SweeperActions = {
       actionType: SweeperConstants.TOGGLE_SQUARE_FLAG,
       coordinate: coordinate
     });
+  },
+
+  runVictoryRoutine: function () {
+    AppDispatcher.handleViewAction({
+      actionType: SweeperConstants.VICTORY_ROUTINE
+    });
   }
 
 };

@@ -8,6 +8,7 @@ var SweeperStore = require('../stores/SweeperStore');
 var Board = require('./Board.react');
 
 var Game = React.createClass({
+  _happyMessage: 'Gratulerer med dagen!',
 
   getInitialState: function () {
     SweeperStore.configure(this.props);
@@ -38,10 +39,14 @@ var Game = React.createClass({
   },
 
   _onChange: function() {
-    console.log(SweeperStore.remainingMineCount());
     this.setState({
-      remainingMineCount: SweeperStore.remainingMineCount()
+      remainingMineCount: SweeperStore.remainingMineCount(),
+      isGameOver: SweeperStore.isGameOver()
     });
+
+    if (!SweeperStore.isGameOver() && SweeperStore.remainingSquareCount() === 0) {
+      SweeperActions.runVictoryRoutine();
+    }
   },
 
   render: function () {
@@ -49,7 +54,9 @@ var Game = React.createClass({
       <section className="game" style={{width: ''+(this.props.width * 1.8)+'em'}}>
         <header>
           <h1>sindre<span className="alt">sveiper</span></h1>
-          <h2 className="remaining">{this.state.remainingMineCount}</h2>
+          <h2 className="remaining">
+            {this.state.isGameOver ? this._happyMessage : this.state.remainingMineCount}
+          </h2>
         </header>
         <Board width={this.props.width}
                height={this.props.height}
