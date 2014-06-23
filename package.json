@@ -1,7 +1,7 @@
 {
-  "name": "todomvc-flux",
+  "name": "sweeper",
   "version": "0.0.1",
-  "description": "Example Flux architecture.",
+  "description": "Simple minesweeper game.",
   "main": "js/app.js",
   "dependencies": {
     "es6-promise": "~0.1.1",
@@ -22,7 +22,7 @@
     "collect-static": "collect-static . ./static",
     "test": "jest"
   },
-  "author": "Bill Fisher",
+  "author": "Jonas Myrlund",
   "license": "Apache 2",
   "browserify": {
     "transform": [
