@@ -8,6 +8,21 @@ body {
   width: auto;
 }
 
+.board {
+  background-size: 100% 100%;
+  background: no-repeat center center;
+  width: 27em;
+}
+  .board.bg1 {
+    background-image: url(../gfx/bg1.png);
+  }
+  .board.bg2 {
+    background-image: url(../gfx/bg2.png);
+  }
+  .board.bg3 {
+    background-image: url(../gfx/bg3.png);
+  }
+
 ul.rows {
   list-style-type: none;
   padding: 0;
@@ -25,7 +40,6 @@ ul.rows {
   width: 1.8em;
   height: 1.8em;
   margin: 0;
-  overflow: hidden;
 
   padding: .1em;
   text-align: center;
@@ -38,7 +52,7 @@ ul.rows {
   .square.open {
     border-width: .1em;
     border-color: #999;
-    background: #cdcdcd;
+    background: rgba(255, 255, 255, .2);
     cursor: default;
   }
     .square.open.n1 {
@@ -57,11 +71,17 @@ ul.rows {
       color: #c03;
     }
     .square.open.mine {
-      background-image: url(../gfx/mine.svg);
+      /*background-image: url(../gfx/mine.svg);
       background-size: 1.3em;
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: center center;*/
     }
+      .square.open.mine img {
+        text-align: center;
+        position: relative;
+        top: -25px;
+        left: -10px;
+      }
   .square.flagged {
     background-image: url(../gfx/flag.svg);
     background-size: .9em;

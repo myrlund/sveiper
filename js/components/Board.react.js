@@ -68,7 +68,7 @@ var Board = React.createClass({
     }
 
     return (
-      <section className="board">
+      <section className={"board bg"+this.props.background}>
         <ul className="rows">{outputRows}</ul>
       </section>
     );
